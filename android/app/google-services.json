@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "321178165720",
+    "project_id": "stayease-e6b48",
+    "storage_bucket": "stayease-e6b48.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321178165720:android:b8d825ad3cd5bf4e4612ad",
+        "android_client_info": {
+          "package_name": "com.stayease.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvVSSdB_UxTuX7iDp7G5zvBoUBWX19UVc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321178165720:android:4eb6fe121d8958634612ad",
+        "android_client_info": {
+          "package_name": "com.stayease.stayease"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvVSSdB_UxTuX7iDp7G5zvBoUBWX19UVc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
