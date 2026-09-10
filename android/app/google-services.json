@@ -12,7 +12,12 @@
           "package_name": "com.stayease.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "321178165720-9god8vjjauj786kmaijr7buoabtant3p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCvVSSdB_UxTuX7iDp7G5zvBoUBWX19UVc"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "321178165720-9god8vjjauj786kmaijr7buoabtant3p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "321178165720-3a3uq6e58fojct80mn90u7vu4ufu9rpl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.stayease.stayease"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +48,20 @@
           "package_name": "com.stayease.stayease"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "321178165720-u5b038dqgaofvrldve083l11hiath3fu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stayease.stayease",
+            "certificate_hash": "e0a0a303c065a5e2f0b4c4087ad3f99348cc6c93"
+          }
+        },
+        {
+          "client_id": "321178165720-9god8vjjauj786kmaijr7buoabtant3p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCvVSSdB_UxTuX7iDp7G5zvBoUBWX19UVc"
@@ -39,7 +69,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "321178165720-9god8vjjauj786kmaijr7buoabtant3p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "321178165720-3a3uq6e58fojct80mn90u7vu4ufu9rpl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.stayease.stayease"
+              }
+            }
+          ]
         }
       }
     }
