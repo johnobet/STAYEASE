@@ -43,3 +43,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Secrets — never commit service account keys or env files
+payment_backend/*serviceAccountKey*.json
+payment_backend/.env
+.env

@@ -29,6 +29,18 @@ class ReservationService {
         .map((snap) => snap.docs.map((d) => ReservationModel.fromMap(d.id, d.data())).toList());
   }
 
+  /// Whether this tenant already has a pending or approved reservation for
+  /// this property — used to stop duplicate requests from the detail screen.
+  Future<bool> hasActiveReservation({required String tenantId, required String propertyId}) async {
+    final snap = await _reservations
+        .where('tenantId', isEqualTo: tenantId)
+        .where('propertyId', isEqualTo: propertyId)
+        .where('status', whereIn: [ReservationStatus.pending.value, ReservationStatus.approved.value])
+        .limit(1)
+        .get();
+    return snap.docs.isNotEmpty;
+  }
+
   /// Tenant creates a reservation request — always starts 'pending'; the
   /// Firestore rules only allow tenant-created docs at that status, so an
   /// owner has to explicitly approve before it becomes real.

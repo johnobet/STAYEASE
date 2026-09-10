@@ -42,6 +42,18 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
       return;
     }
 
+    final alreadyReserved = await _reservationService.hasActiveReservation(
+      tenantId: widget.user.uid,
+      propertyId: property.id,
+    );
+    if (!mounted) return;
+    if (alreadyReserved) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('You already have an active reservation for this property.')),
+      );
+      return;
+    }
+
     final checkInDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now().add(const Duration(days: 1)),
@@ -87,6 +99,7 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
       );
       if (mounted) Navigator.of(context).pop();
     } catch (e) {
+      debugPrint('Reservation failed: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Could not send your reservation. Please try again.')),
@@ -108,6 +121,7 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final property = widget.property;
+    final imageUrl = property.gallery.isNotEmpty ? property.gallery.first : property.imageUrl;
 
     return Scaffold(
       appBar: AppBar(
@@ -122,7 +136,15 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
               SizedBox(
                 height: 180,
                 width: double.infinity,
-                child: _imageFallback(),
+                child: imageUrl.isNotEmpty
+                    ? Image.network(
+                        imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => _imageFallback(),
+                        loadingBuilder: (context, child, progress) =>
+                            progress == null ? child : _imageFallback(),
+                      )
+                    : _imageFallback(),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(AppSpacing.l, AppSpacing.l, AppSpacing.l, 0),
@@ -174,7 +196,7 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
                       const SizedBox(height: AppSpacing.xs),
                       Text('Hosted by ${property.ownerName}', style: AppTypography.bodyS),
                     ],
-                    if (widget.matchResult != null) ...[
+                    if (widget.matchResult != null && widget.aiPreferences != null) ...[
                       const SizedBox(height: AppSpacing.xl),
                       _AIMatchCard(
                         property: property,
