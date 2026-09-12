@@ -63,8 +63,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         password: _passwordController.text,
         role: _role,
       );
-      // AuthGate listens to authStateChanges and will route automatically —
-      // no manual navigation needed here.
+      // AuthGate (the first route) swaps itself to the right dashboard on
+      // sign-in, but this screen was pushed on top of it — pop back so
+      // that becomes visible instead of leaving this screen on top of it.
+      if (mounted) Navigator.of(context).popUntil((route) => route.isFirst);
     } on AuthException catch (e) {
       setState(() => _error = e.message);
     } finally {
@@ -76,10 +78,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() => _error = null);
     setState(() => _googleLoading = true);
     try {
-      await _authService.signInWithGoogle();
+      final user = await _authService.signInWithGoogle();
       // Returns null if the person cancelled the picker — nothing to do.
-      // New accounts default to UserRole.tenant; AuthGate routes
-      // automatically once the profile exists.
+      // New accounts default to UserRole.tenant. This screen was pushed on
+      // top of AuthGate's first route, so pop back to reveal the dashboard
+      // AuthGate just switched to underneath (see registerWithEmail above).
+      if (user != null && mounted) Navigator.of(context).popUntil((route) => route.isFirst);
     } on AuthException catch (e) {
       setState(() => _error = e.message);
     } finally {

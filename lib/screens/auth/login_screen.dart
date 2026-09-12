@@ -43,7 +43,11 @@ class _LoginScreenState extends State<LoginScreen> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-      // AuthGate routes automatically on successful sign-in.
+      // AuthGate (the first route) routes automatically on successful
+      // sign-in, but if this screen was reached by pushing on top of it
+      // (e.g. from the register screen's "Log in" link), pop back so
+      // that becomes visible instead of leaving this screen on top of it.
+      if (mounted) Navigator.of(context).popUntil((route) => route.isFirst);
     } on AuthException catch (e) {
       setState(() => _error = e.message);
     } finally {
@@ -55,9 +59,11 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _error = null);
     setState(() => _googleLoading = true);
     try {
-      await _authService.signInWithGoogle();
+      final user = await _authService.signInWithGoogle();
       // Returns null if the person cancelled the picker — nothing to do.
-      // AuthGate routes automatically on successful sign-in.
+      // Pop back to the first route in case this screen was pushed on top
+      // of it (see signInWithEmail above).
+      if (user != null && mounted) Navigator.of(context).popUntil((route) => route.isFirst);
     } on AuthException catch (e) {
       setState(() => _error = e.message);
     } finally {

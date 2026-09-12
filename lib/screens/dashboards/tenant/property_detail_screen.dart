@@ -277,6 +277,10 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
             children: [
               Expanded(
                 child: Column(
+                  // Without this the Column takes the full height Scaffold
+                  // offers bottomNavigationBar, so the bar covers the whole
+                  // screen and the body gets zero height.
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
